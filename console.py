@@ -126,7 +126,7 @@ class HBNBCommand(cmd.Cmd):
         new_instance = HBNBCommand.classes[args[0]]()
         storage.save()
 
-        #updating the object with the passed attribute values
+        # updating the object with the passed attribute values
         new_instance_key = f"{args[0]}.{new_instance.id}"
         new_obj = storage.all()[new_instance_key]
         for arg in args[1:]:
@@ -139,8 +139,8 @@ class HBNBCommand(cmd.Cmd):
             else:
                 value = int(value)
 
-            new_obj.__dict__.update({key:value})
-       
+            new_obj.__dict__.update({key: value})
+
         storage.save()
         print(new_instance.id)
         storage.save()
@@ -206,7 +206,7 @@ class HBNBCommand(cmd.Cmd):
         key = c_name + "." + c_id
 
         try:
-            del(storage.all()[key])
+            del (storage.all()[key])
             storage.save()
         except KeyError:
             print("** no instance found **")
@@ -338,6 +338,7 @@ class HBNBCommand(cmd.Cmd):
         """ Help information for the update class """
         print("Updates an object with new information")
         print("Usage: update <className> <id> <attName> <attVal>\n")
+
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
