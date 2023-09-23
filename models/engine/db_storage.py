@@ -35,7 +35,8 @@ class DBStorage:
         """ querying all class objects """
         objects = {}
         if cls:
-            cls = eval(cls)
+            if type(cls) is str:
+                cls = eval(cls)
             objs = self.__session.query(cls).all()
             for obj in objs:
                 key = f"{type(obj).__name__}.{obj.id}"

@@ -114,36 +114,26 @@ class HBNBCommand(cmd.Cmd):
         """ Overrides the emptyline method of CMD """
         pass
 
-    def do_create(self, arg):
+    def do_create(self, args):
         """ Create an object of any class"""
-        args = arg.split()
-        if len(args) < 1:
+        try:
+            if not args:
+                raise SyntaxError()
+            arg_list = args.split(" ")
+            kw = {}
+            for arg in arg_list[1:]:
+                arg_splited = arg.split("=")
+                arg_splited[1] = eval(arg_splited[1])
+                if type(arg_splited[1]) is str:
+                    arg_splited[1] = arg_splited[1].replace("_", " ").replace('"', '\\"')
+                kw[arg_splited[0]] = arg_splited[1]
+        except SyntaxError:
             print("** class name missing **")
-            return
-        elif args[0] not in HBNBCommand.classes:
+        except NameError:
             print("** class doesn't exist **")
-            return
-        new_instance = HBNBCommand.classes[args[0]]()
-        storage.save()
-
-        # updating the object with the passed attribute values
-        new_instance_key = f"{args[0]}.{new_instance.id}"
-        new_obj = storage.all()[new_instance_key]
-        for arg in args[1:]:
-            key, value = arg.split("=")
-            if value[0] == '"':
-                value = value.replace("_", " ")
-                value = value.strip('"')
-            elif re.match(r'^-?\d+\.\d+$', value):
-                value = float(value)
-            else:
-                value = int(value)
-
-            new_obj.__dict__.update({key: value})
-
-        storage.save()
+        new_instance = HBNBCommand.classes[arg_list[0]](**kw)
+        new_instance.save()
         print(new_instance.id)
-        storage.save()
 
     def help_create(self):
         """ Help information for the create method """
@@ -225,11 +215,11 @@ class HBNBCommand(cmd.Cmd):
             if args not in HBNBCommand.classes:
                 print("** class doesn't exist **")
                 return
-            for k, v in storage._FileStorage__objects.items():
+            for k, v in storage.all(HBNBCommand.classes[args]).items():
                 if k.split('.')[0] == args:
                     print_list.append(str(v))
         else:
-            for k, v in storage._FileStorage__objects.items():
+            for k, v in storage.all().items():
                 print_list.append(str(v))
 
         print(print_list)
