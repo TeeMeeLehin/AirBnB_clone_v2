@@ -8,6 +8,7 @@ env.hosts = ['54.160.126.192', '54.159.22.198']
 env.user = 'ubuntu'
 env.key_filename = '~/.ssh/id_rsa'
 
+
 def do_pack():
     """Create a .tgz archive from the contents of the web_static folder."""
     timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
@@ -22,6 +23,7 @@ def do_pack():
         return f"versions/{archive_name}"
     else:
         return None
+
 
 def do_deploy(archive_path):
     """Distribute and deploy an archive to web servers."""
@@ -50,6 +52,7 @@ def do_deploy(archive_path):
         return True
     except Exception:
         return False
+
 
 def deploy():
     """Create and distribute an archive, then deploy it to web servers."""
