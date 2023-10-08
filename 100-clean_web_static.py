@@ -13,7 +13,7 @@ env.key_filename = '~/.ssh/id_rsa'
 def do_clean(number=0):
     """Delete out-of-date archives from versions and releases folders."""
 
-    number = int(number)
+    number = 1 if int(number) == 0 else int(number)
     archive_dir = 'versions'
     LA = [f for f in listdir(archive_dir) if isfile(join(archive_dir, f))]
 
