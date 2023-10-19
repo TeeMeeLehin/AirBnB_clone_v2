@@ -5,7 +5,7 @@ from datetime import datetime
 from os import listdir
 from os.path import isfile, join
 
-env.hosts = ['54.160.126.192', '54.159.22.198']
+env.hosts = ['100.26.249.240', '54.159.22.198']
 env.user = 'ubuntu'
 env.key_filename = '~/.ssh/id_rsa'
 
