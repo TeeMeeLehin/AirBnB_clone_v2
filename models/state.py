@@ -9,7 +9,8 @@ class State(BaseModel, Base):
     """ State class """
     __tablename__ = "states"
     name = Column(String(128), nullable=False)
-    cities = relationship("City", back_populates="state", cascade="all, delete-orphan")
+    cities = relationship("City", back_populates="state",
+                          cascade="all, delete-orphan")
 
     @property
     def cities(self):
@@ -17,4 +18,4 @@ class State(BaseModel, Base):
         from models import storage
         from models.city import City
         city_objs = storage.all(City)
-        return [city for city in city_objs.values() if city.state_id == self.id]
+        return [cty for cty in city_objs.values() if cty.state_id == self.id]
