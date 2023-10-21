@@ -17,8 +17,8 @@ def teardown(exception):
 def state_lists():
     " function to display all states in storage "
     state_d = storage.all(State)
-    states = list(sorted(state_d.values(), key = lambda value:value.name))
-    
+    states = list(sorted(state_d.values(), key=lambda value: value.name))
+
     return (render_template("7-states_list.html", states=states))
 
 
