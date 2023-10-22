@@ -36,7 +36,7 @@ def states_cities(id):
         else:
             stat = None
 
-    return (render_template("9-states.html", stat=stat))        
+    return (render_template("9-states.html", stat=stat))
 
 
 if __name__ == '__main__':
